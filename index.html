@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blood on the Blocktower</title>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<style>
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(10,0,0,0.5)), url('/background.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f5f5f5;
+    text-align: center;
+}
+
+header { padding: 60px 20px; }
+h1 { font-size: 3em; color: crimson; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,0,0,0.6); }
+.subtitle { color: #ccc; font-size: 1.2em; }
+
+.section { padding: 50px 20px; max-width: 900px; margin: auto; }
+.card {
+    background: rgba(20,0,0,0.65);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(255,0,0,0.25);
+}
+
+button {
+    background: crimson;
+    border: none;
+    padding: 15px 25px;
+    color: white;
+    font-size: 1em;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover { background: darkred; }
+
+.footer { padding: 30px; font-size: 0.9em; color: #aaa; }
+input { padding:10px; width:80%; max-width:300px; margin:10px; border-radius:6px; border:none; }
+#error { color:red; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Blood on the Blocktower</h1>
+    <p class="subtitle">A Social Deduction Experience in Minecraft</p>
+</header>
+
+<div class="section">
+
+<div class="card">
+    <h2>📝 Request Whitelist Access</h2>
+    <p>Enter your Minecraft username to request access to the server.</p>
+
+    <form id="whitelistForm" method="POST" action="/api/submit">
+        <p style="display:none">
+            <label>Don’t fill this out: <input name="bot-field"></label>
+        </p>
+
+        <input type="text" id="username" name="username" placeholder="Minecraft Username" required>
+        <p id="error"></p>
+        <br>
+        <button type="submit">Request Access</button>
+    </form>
+</div>
+
+<div class="card">
+    <h2>🕯️ About the Game</h2>
+    <p>Deception and deduction! Players take on the role of secret characters, each with unique abilities, as they attempt to uncover the evil team - or hide among them.</p>
+</div>
+
+<div class="card">
+    <h2>🎭 How It Works</h2>
+    <p>Discuss, accuse and vote. Each day ends with nominations and a potential execution, while each night a demon may prey on the unwary.</p>
+</div>
+
+<div class="card">
+    <h2>🎮 Join the Game</h2>
+    <p>Connect to the server:</p>
+    <h3>mc.bloodontheblocktower.com</h3>
+</div>
+
+<button onclick="alert('More coming soon...')">Learn More</button>
+</div>
+
+<div class="footer">
+    © 2025 Blood on the Blocktower
+</div>
+
+<script>
+// Optional: client-side username validation before sending
+document.getElementById("whitelistForm").addEventListener("submit", async (e) => {
+    const usernameInput = document.getElementById("username");
+    const errorEl = document.getElementById("error");
+    const username = usernameInput.value.trim();
+
+    if(username.length < 3 || username.length > 16) {
+        e.preventDefault();
+        errorEl.textContent = "Username must be 3–16 characters.";
+        return;
+    }
+    errorEl.textContent = ""; // let the Pages Function handle further validation
+});
+</script>
+
+</body>
+</html>
