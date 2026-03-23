@@ -106,12 +106,33 @@ form.addEventListener("submit", async (e) => {
 
     const username = usernameInput.value.trim();
 
-    if(username.length < 3 || username.length > 16) {
-        errorEl.textContent = "Username must be 3–16 characters.";
+    const validUsername = /^[a-zA-Z0-9_]{3,16}$/;
+
+    if (!validUsername.test(username)) {
+        errorEl.textContent = "Invalid username (3–16 letters, numbers, or _ only)";
         return;
     }
 
     errorEl.textContent = "";
+    successEl.textContent = "Checking username...";
+
+    try {
+        const response = await fetch(
+            `https://api.mojang.com/users/profiles/minecraft/${username}`
+        );
+
+        if (response.status === 204) {
+            successEl.textContent = "";
+            errorEl.textContent = "Minecraft username does not exist";
+            return;
+        }
+
+    } catch (err) {
+        successEl.textContent = "";
+        errorEl.textContent = "Error checking username. Try again.";
+        return;
+    }
+
     successEl.textContent = "Submitting...";
 
     try {
