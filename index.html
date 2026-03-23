@@ -106,20 +106,29 @@ form.addEventListener("submit", async (e) => {
 
     const username = usernameInput.value.trim();
 
+    // ✅ Format validation
     const validUsername = /^[a-zA-Z0-9_]{3,16}$/;
 
     if (!validUsername.test(username)) {
         errorEl.textContent = "Invalid username (3–16 letters, numbers, or _ only)";
+        successEl.textContent = "";
         return;
     }
 
     errorEl.textContent = "";
     successEl.textContent = "Checking username...";
 
+    // ✅ Mojang API check with timeout
     try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
+
         const response = await fetch(
-            `https://api.mojang.com/users/profiles/minecraft/${username}`
+            `https://api.mojang.com/users/profiles/minecraft/${username}`,
+            { signal: controller.signal }
         );
+
+        clearTimeout(timeoutId);
 
         if (response.status === 204) {
             successEl.textContent = "";
@@ -129,10 +138,16 @@ form.addEventListener("submit", async (e) => {
 
     } catch (err) {
         successEl.textContent = "";
-        errorEl.textContent = "Error checking username. Try again.";
+
+        if (err.name === "AbortError") {
+            errorEl.textContent = "Username check timed out. Try again.";
+        } else {
+            errorEl.textContent = "Error checking username. Try again.";
+        }
         return;
     }
 
+    // ✅ Submit to Google Forms
     successEl.textContent = "Submitting...";
 
     try {
