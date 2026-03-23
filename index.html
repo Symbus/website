@@ -85,10 +85,6 @@ input { padding:10px; width:80%; max-width:300px; margin:10px; border-radius:6px
     <h2>🎮 Join the Game</h2>
     <p>Connect to the server:</p>
     <h3>mc.bloodontheblocktower.com</h3>
-</div>
-
-<button onclick="alert('More coming soon...')">Learn More</button>
-</div>
 
 <div class="footer">
     © 2025 Blood on the Blocktower
@@ -121,7 +117,7 @@ form.addEventListener("submit", async (e) => {
     // ✅ Mojang API check with timeout
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000);
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
 
         const response = await fetch(
             `https://api.codetabs.com/v1/proxy?quest=https://api.mojang.com/users/profiles/minecraft/${username}`,
