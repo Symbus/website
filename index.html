@@ -52,7 +52,7 @@ input { padding:10px; width:80%; max-width:300px; margin:10px; border-radius:6px
 <body>
 
 <header>
-    <h1>Blood on the Blocktower A</h1>
+    <h1>Blood on the Blocktower B</h1>
     <p class="subtitle">A Social Deduction Experience in Minecraft</p>
 </header>
 
@@ -116,47 +116,47 @@ form.addEventListener("submit", async (e) => {
     }
 
     errorEl.textContent = "";
-    successEl.textContent = "Checking username...";
+    successEl.textContent = "🔍 Verifying username...";
 
     // ✅ Mojang API check with timeout
-try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-    const response = await fetch(
-        `https://api.allorigins.win/raw?url=https://api.mojang.com/users/profiles/minecraft/${username}`,
-        { signal: controller.signal }
-    );
+        const response = await fetch(
+            `https://api.codetabs.com/v1/proxy?quest=https://api.mojang.com/users/profiles/minecraft/${username}`,
+            { signal: controller.signal }
+        );
 
-    clearTimeout(timeoutId);
+        clearTimeout(timeoutId);
 
-   const text = await response.text();
+        const text = await response.text();
 
-try {
-    const data = JSON.parse(text);
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch {
+            errorEl.textContent = "Minecraft username does not exist";
+            successEl.textContent = "";
+            return;
+        }
 
-    // If no ID returned → invalid username
-    if (!data.id) {
+        if (!data.id) {
+            errorEl.textContent = "Minecraft username does not exist";
+            successEl.textContent = "";
+            return;
+        }
+
+    } catch (err) {
         successEl.textContent = "";
-        errorEl.textContent = "Minecraft username does not exist";
+
+        if (err.name === "AbortError") {
+            errorEl.textContent = "Username check timed out. Try again.";
+        } else {
+            errorEl.textContent = "Error checking username. Try again.";
+        }
         return;
     }
-
-} catch {
-    successEl.textContent = "";
-    errorEl.textContent = "Minecraft username does not exist";
-    return;
-}
-} catch (err) {
-    successEl.textContent = "";
-
-    if (err.name === "AbortError") {
-        errorEl.textContent = "Username check timed out. Try again.";
-    } else {
-        errorEl.textContent = "Error checking username. Try again.";
-    }
-    return;
-}
 
     // ✅ Submit to Google Forms
     successEl.textContent = "Submitting...";
@@ -172,6 +172,7 @@ try {
         });
 
         successEl.textContent = "✅ Request submitted!";
+        errorEl.textContent = "";
         usernameInput.value = "";
 
     } catch (err) {
