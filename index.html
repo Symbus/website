@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blood on the Blocktower</title>
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
 <style>
 body {
     margin: 0;
@@ -46,6 +46,7 @@ button:hover { background: darkred; }
 .footer { padding: 30px; font-size: 0.9em; color: #aaa; }
 input { padding:10px; width:80%; max-width:300px; margin:10px; border-radius:6px; border:none; }
 #error { color:red; }
+.success { color: lightgreen; margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -61,13 +62,10 @@ input { padding:10px; width:80%; max-width:300px; margin:10px; border-radius:6px
     <h2>📝 Request Whitelist Access</h2>
     <p>Enter your Minecraft username to request access to the server.</p>
 
-    <form id="whitelistForm" method="POST" action="/api/submit">
-        <p style="display:none">
-            <label>Don’t fill this out: <input name="bot-field"></label>
-        </p>
-
-        <input type="text" id="username" name="username" placeholder="Minecraft Username" required>
+    <form id="whitelistForm">
+        <input type="text" id="username" placeholder="Minecraft Username" required>
         <p id="error"></p>
+        <p id="success" class="success"></p>
         <br>
         <button type="submit">Request Access</button>
     </form>
@@ -97,18 +95,42 @@ input { padding:10px; width:80%; max-width:300px; margin:10px; border-radius:6px
 </div>
 
 <script>
-// Optional: client-side username validation before sending
-document.getElementById("whitelistForm").addEventListener("submit", async (e) => {
+const form = document.getElementById("whitelistForm");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
     const usernameInput = document.getElementById("username");
     const errorEl = document.getElementById("error");
+    const successEl = document.getElementById("success");
+
     const username = usernameInput.value.trim();
 
     if(username.length < 3 || username.length > 16) {
-        e.preventDefault();
         errorEl.textContent = "Username must be 3–16 characters.";
         return;
     }
-    errorEl.textContent = ""; // let the Pages Function handle further validation
+
+    errorEl.textContent = "";
+    successEl.textContent = "Submitting...";
+
+    try {
+        await fetch("https://docs.google.com/forms/d/e/1FAIpQLSeFTAXHdQePPxiXu7RDTbkxpBid3lqHKJkqHNgHthVSd2YIiw/formResponse", {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "entry.1581321324=" + encodeURIComponent(username)
+        });
+
+        successEl.textContent = "✅ Request submitted!";
+        usernameInput.value = "";
+
+    } catch (err) {
+        successEl.textContent = "";
+        errorEl.textContent = "Something went wrong. Try again.";
+    }
 });
 </script>
 
