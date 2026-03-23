@@ -130,15 +130,23 @@ try {
 
     clearTimeout(timeoutId);
 
-    const text = await response.text();
+   const text = await response.text();
 
-    // If empty response → username does NOT exist
-    if (!text) {
+try {
+    const data = JSON.parse(text);
+
+    // If no ID returned → invalid username
+    if (!data.id) {
         successEl.textContent = "";
         errorEl.textContent = "Minecraft username does not exist";
         return;
     }
 
+} catch {
+    successEl.textContent = "";
+    errorEl.textContent = "Minecraft username does not exist";
+    return;
+}
 } catch (err) {
     successEl.textContent = "";
 
