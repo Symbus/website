@@ -4,177 +4,189 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blood on the Blocktower</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 body {
     margin: 0;
-    font-family: 'Georgia', serif;
-    background: linear-gradient(rgba(0,0,0,0.35), rgba(10,0,0,0.5)), url('background.webp');
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(10,0,0,0.85)), url('/background.webp');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
     color: #f5f5f5;
+}
+
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-}
-
-header { padding: 60px 20px; }
-h1 { font-size: 3em; color: crimson; margin-bottom: 10px; text-shadow: 0 0 15px rgba(255,0,0,0.6); }
-.subtitle { color: #ccc; font-size: 1.2em; }
-
-.section { padding: 50px 20px; max-width: 900px; margin: auto; }
-.card {
-    background: rgba(20,0,0,0.65);
-    backdrop-filter: blur(6px);
     padding: 20px;
-    margin: 20px 0;
-    border-radius: 12px;
-    box-shadow: 0 0 25px rgba(255,0,0,0.25);
 }
 
-button {
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 3.5em;
+    color: crimson;
+    text-shadow: 0 0 25px rgba(255,0,0,0.7);
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    color: #ccc;
+    margin-bottom: 30px;
+}
+
+.cta-container {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-button {
     background: crimson;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.1em;
     border: none;
-    padding: 15px 25px;
-    color: white;
-    font-size: 1em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.cta-button:hover {
+    background: darkred;
+    transform: scale(1.05);
+}
+
+.discord-button {
+    background: #5865F2;
+}
+
+.discord-button:hover {
+    background: #4752C4;
+}
+
+.section {
+    padding: 80px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.card {
+    background: rgba(20,0,0,0.7);
+    backdrop-filter: blur(8px);
+    padding: 25px;
+    margin: 25px 0;
+    border-radius: 14px;
+    box-shadow: 0 0 30px rgba(255,0,0,0.2);
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0 50px rgba(255,0,0,0.4);
+}
+
+input {
+    padding: 12px;
+    width: 80%;
+    max-width: 320px;
     border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+}
+
+button.submit {
+    margin-top: 15px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: crimson;
+    color: white;
     cursor: pointer;
 }
 
-button:hover { background: darkred; }
-
-.footer { padding: 30px; font-size: 0.9em; color: #aaa; }
-input { padding:10px; width:80%; max-width:300px; margin:10px; border-radius:6px; border:none; }
-#error { color:red; }
-.success { color: lightgreen; margin-top: 10px; }
+.footer {
+    text-align: center;
+    padding: 30px;
+    color: #aaa;
+    font-size: 0.9em;
+}
 </style>
 </head>
 <body>
 
-<header>
+<div class="hero">
     <h1>Blood on the Blocktower</h1>
-    <p class="subtitle">A Social Deduction Experience in Minecraft</p>
-</header>
+    <p class="subtitle">Deception. Deduction. Survival.</p>
+    <div class="cta-container">
+        <button class="cta-button" onclick="document.getElementById('join').scrollIntoView({behavior:'smooth'})">Request Access</button>
+        <a href="https://discord.gg/kV5tu9r" target="_blank">
+            <button class="cta-button discord-button">Join Discord</button>
+        </a>
+    </div>
+</div>
 
 <div class="section">
 
 <div class="card">
-    <h2>📝 Request Whitelist Access</h2>
-    <p>Enter your Minecraft username to request access to the server.</p>
+    <h2>🕯️ What Is This?</h2>
+    <p>A fully custom social deduction experience inside Minecraft. Every player holds secrets. Every vote matters. Trust no one.</p>
+</div>
 
-    <form id="whitelistForm">
-        <input type="text" id="username" placeholder="Minecraft Username" required>
-        <p id="error"></p>
-        <p id="success" class="success"></p>
+<div class="card">
+    <h2>🎭 Gameplay</h2>
+    <p>Players debate, accuse, and vote during the day. At night, something hunts. Roles are hidden. Alliances are fragile.</p>
+</div>
+
+<div class="card">
+    <h2>👑 Why Play?</h2>
+    <ul>
+        <li>Custom Blood on the Clocktower systems</li>
+        <li>Proximity voice chat deception</li>
+        <li>Unique roles and mechanics</li>
+        <li>Live-hosted sessions</li>
+    </ul>
+</div>
+
+<div class="card" id="join">
+    <h2>📜 Request Entry</h2>
+    <p>Submit your name to the Town Council for consideration.</p>
+
+    <form id="whitelistForm" method="POST" action="/api/submit">
+        <input type="text" name="username" placeholder="Minecraft Username" required>
         <br>
-        <button type="submit">Request Access</button>
+        <button class="submit" type="submit">Submit Request</button>
     </form>
 </div>
 
 <div class="card">
-    <h2>🕯️ About the Game</h2>
-    <p>Deception and deduction! Players take on the role of secret characters, each with unique abilities, as they attempt to uncover the evil team - or hide among them.</p>
-</div>
-
-<div class="card">
-    <h2>🎭 How It Works</h2>
-    <p>Discuss, accuse and vote. Each day ends with nominations and a potential execution, while each night a demon may prey on the unwary.</p>
-</div>
-
-<div class="card">
-    <h2>🎮 Join the Game</h2>
-    <p>Connect to the server:</p>
+    <h2>🎮 Join Directly</h2>
     <h3>mc.bloodontheblocktower.com</h3>
+</div>
+
+<div class="card">
+    <h2>💬 Community</h2>
+    <p>Join the discussion, get updates, and take part in upcoming games.</p>
+    <a href="https://discord.gg/kV5tu9r" target="_blank">
+        <button class="cta-button discord-button">Enter the Discord</button>
+    </a>
+</div>
+
+</div>
 
 <div class="footer">
-    © 2025 Blood on the Blocktower
+    © 2026 Blood on the Blocktower
 </div>
 
 <script>
-const form = document.getElementById("whitelistForm");
-
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const usernameInput = document.getElementById("username");
-    const errorEl = document.getElementById("error");
-    const successEl = document.getElementById("success");
-
-    const username = usernameInput.value.trim();
-
-    // ✅ Format validation
-    const validUsername = /^[a-zA-Z0-9_]{3,16}$/;
-
-    if (!validUsername.test(username)) {
-        errorEl.textContent = "Invalid username (3–16 letters, numbers, or _ only)";
-        successEl.textContent = "";
-        return;
-    }
-
-    errorEl.textContent = "";
-    successEl.textContent = "🔍 Verifying username...";
-
-    // ✅ Mojang API check with timeout
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000);
-
-        const response = await fetch(
-            `https://api.codetabs.com/v1/proxy?quest=https://api.mojang.com/users/profiles/minecraft/${username}`,
-            { signal: controller.signal }
-        );
-
-        clearTimeout(timeoutId);
-
-        const text = await response.text();
-
-        let data;
-        try {
-            data = JSON.parse(text);
-        } catch {
-            errorEl.textContent = "Minecraft username does not exist";
-            successEl.textContent = "";
-            return;
-        }
-
-        if (!data.id) {
-            errorEl.textContent = "Minecraft username does not exist";
-            successEl.textContent = "";
-            return;
-        }
-
-    } catch (err) {
-        successEl.textContent = "";
-
-        if (err.name === "AbortError") {
-            errorEl.textContent = "Username check timed out. Try again.";
-        } else {
-            errorEl.textContent = "Error checking username. Try again.";
-        }
-        return;
-    }
-
-    // ✅ Submit to Google Forms
-    successEl.textContent = "Submitting...";
-
-    try {
-        await fetch("https://docs.google.com/forms/d/e/1FAIpQLSeFTAXHdQePPxiXu7RDTbkxpBid3lqHKJkqHNgHthVSd2YIiw/formResponse", {
-            method: "POST",
-            mode: "no-cors",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: "entry.1581321324=" + encodeURIComponent(username)
-        });
-
-        successEl.textContent = "✅ Request submitted!";
-        errorEl.textContent = "";
-        usernameInput.value = "";
-
-    } catch (err) {
-        successEl.textContent = "";
-        errorEl.textContent = "Something went wrong. Try again.";
-    }
+document.getElementById("whitelistForm").addEventListener("submit", function() {
+    const btn = this.querySelector("button");
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
 });
 </script>
 
