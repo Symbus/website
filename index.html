@@ -1,193 +1,372 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Blood on the Blocktower</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <style>
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(10,0,0,0.85)), url('/background.webp');
-    background-size: cover;
-    background-position: center;
-    color: #f5f5f5;
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 20px;
+html{
+    scroll-behavior:smooth;
 }
 
-h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 3.5em;
-    color: crimson;
-    text-shadow: 0 0 25px rgba(255,0,0,0.7);
-    margin: 0;
+body{
+    font-family: "Segoe UI", sans-serif;
+    color:#f4f1ea;
+    overflow-x:hidden;
+
+    /* Static Background */
+    background:
+        linear-gradient(rgba(8,8,8,0.72), rgba(8,8,8,0.82)),
+        url('/background.png');
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
 }
 
-.subtitle {
-    font-size: 1.2em;
-    color: #ccc;
-    margin-bottom: 30px;
+/* Center Column */
+
+.page{
+    width:min(92%, 900px);
+    margin:auto;
+    padding:40px 0 80px;
 }
 
-.cta-container {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+/* Glass Container */
 
-.cta-button {
-    background: crimson;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-size: 1.1em;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s;
-}
+.panel{
+    background:rgba(15, 13, 12, 0.72);
+    border:1px solid rgba(255,255,255,0.08);
 
-.cta-button:hover {
-    background: darkred;
-    transform: scale(1.05);
-}
-
-.discord-button {
-    background: #5865F2;
-}
-
-.discord-button:hover {
-    background: #4752C4;
-}
-
-.section {
-    padding: 80px 20px;
-    max-width: 1000px;
-    margin: auto;
-}
-
-.card {
-    background: rgba(20,0,0,0.7);
     backdrop-filter: blur(8px);
-    padding: 25px;
-    margin: 25px 0;
-    border-radius: 14px;
-    box-shadow: 0 0 30px rgba(255,0,0,0.2);
-    transition: 0.25s;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 0 35px rgba(0,0,0,0.45),
+        0 0 2px rgba(255,255,255,0.08);
+
+    padding:32px;
+    margin-bottom:40px;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 0 50px rgba(255,0,0,0.4);
+/* Header */
+
+.hero{
+    text-align:center;
+    padding:50px 30px;
 }
 
-input {
-    padding: 12px;
-    width: 80%;
-    max-width: 320px;
-    border-radius: 8px;
-    border: none;
-    margin-top: 10px;
+.hero h1{
+    font-size:clamp(2.5rem, 6vw, 4.5rem);
+    font-weight:700;
+    letter-spacing:1px;
+
+    color:#f8f1de;
+
+    text-shadow:
+        0 0 10px rgba(255,220,150,0.15),
+        0 0 30px rgba(0,0,0,0.4);
+
+    margin-bottom:18px;
 }
 
-button.submit {
-    margin-top: 15px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background: crimson;
-    color: white;
-    cursor: pointer;
+.subtitle{
+    font-size:1.2rem;
+    color:#d8d2c7;
+    opacity:0.92;
 }
 
-.footer {
-    text-align: center;
-    padding: 30px;
-    color: #aaa;
-    font-size: 0.9em;
+/* Images */
+
+.image-card{
+    overflow:hidden;
+    padding:0;
 }
+
+.image-card img{
+    width:100%;
+    display:block;
+
+    transition:transform 0.8s ease;
+}
+
+.image-card:hover img{
+    transform:scale(1.03);
+}
+
+/* Text */
+
+.text-box{
+    line-height:1.9;
+    font-size:1.08rem;
+    color:#ebe6dc;
+}
+
+.text-box p{
+    margin-bottom:20px;
+}
+
+/* Time Highlight */
+
+.time-highlight{
+    color:#ffcf7d;
+    font-weight:700;
+}
+
+/* Discord Button */
+
+.discord-wrap{
+    text-align:center;
+}
+
+.discord-btn{
+    display:inline-block;
+
+    padding:18px 34px;
+
+    background:linear-gradient(135deg, #6f84ff, #5662f6);
+
+    color:white;
+    text-decoration:none;
+
+    border-radius:14px;
+
+    font-size:1.1rem;
+    font-weight:600;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    box-shadow:
+        0 10px 30px rgba(86,98,246,0.35);
+}
+
+.discord-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 14px 40px rgba(86,98,246,0.45);
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    color:rgba(255,255,255,0.55);
+    font-size:0.9rem;
+    padding-top:10px;
+}
+
+/* Fade In Animation */
+
+.fade-in{
+    opacity:0;
+    transform:translateY(40px);
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.fade-in.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Mobile */
+
+@media (max-width: 700px){
+
+    .panel{
+        padding:24px;
+    }
+
+    .hero{
+        padding:40px 20px;
+    }
+
+    .text-box{
+        font-size:1rem;
+        line-height:1.8;
+    }
+
+}
+
 </style>
 </head>
+
 <body>
 
-<div class="hero">
-    <h1>Blood on the Blocktower</h1>
-    <p class="subtitle">Deception. Deduction. Survival.</p>
-    <div class="cta-container">
-        <button class="cta-button" onclick="document.getElementById('join').scrollIntoView({behavior:'smooth'})">Request Access</button>
-        <a href="https://discord.gg/kV5tu9r" target="_blank">
-            <button class="cta-button discord-button">Join Discord</button>
+<div class="page">
+
+    <!-- HERO -->
+
+    <section class="panel hero fade-in">
+        <h1>Blood on the Blocktower</h1>
+
+        <p class="subtitle">
+            A social deduction game in Minecraft.
+        </p>
+    </section>
+
+    <!-- IMAGE 1 -->
+
+    <section class="panel image-card fade-in">
+        <img src="/screenshot1.png" alt="Minecraft Blood on the Clocktower Build">
+    </section>
+
+    <!-- TEXT 1 -->
+
+    <section class="panel text-box fade-in">
+
+        <p>
+            I am hosting and developing a custom Blood on the Clocktower experience all within Minecraft, recreating the game’s tense social deduction, nominations, and executions using advanced command systems and immersive builds.
+        </p>
+
+        <p>
+            From fully functional voting mechanics to custom storytelling tools, I focus on making every game feel smooth, dramatic, and faithful to the original experience while taking advantage of what Minecraft can uniquely offer.
+        </p>
+
+        <p>
+            I’m also always designing original scripts, automated gameplay systems, and interactive role mechanics that allow up to 8 players to enjoy complex social deduction games directly inside Minecraft with proximity chat and live moderation.
+        </p>
+
+    </section>
+
+    <!-- IMAGE 2 -->
+
+    <section class="panel image-card fade-in">
+        <img src="/screenshot2.png" alt="Minecraft Town Square">
+    </section>
+
+    <!-- TEXT 2 -->
+
+    <section class="panel text-box fade-in">
+
+        <p>
+            Interested in joining the game? Use the Discord link below to become part of the community, stay updated on upcoming sessions, and get access to the modpack and server information.
+        </p>
+
+        <p>
+            Most sessions are hosted at
+            <span class="time-highlight" id="localTime">
+                1:00 PM Sunday AEST
+            </span>,
+            though additional games and events may occasionally be scheduled throughout the week.
+        </p>
+
+        <p>
+            We’re a fairly small, close-knit community that enjoys immersive social deduction games, and we’re always happy to welcome new players regardless of experience level.
+        </p>
+
+        <p>
+            Please note that the server uses a moderately large modpack, so a reasonably powerful PC is recommended for the best experience and stable performance.
+        </p>
+
+    </section>
+
+    <!-- DISCORD -->
+
+    <section class="panel discord-wrap fade-in">
+
+        <a class="discord-btn"
+           href="YOUR_DISCORD_LINK_HERE"
+           target="_blank">
+
+            Join the Discord
+
         </a>
-    </div>
-</div>
 
-<div class="section">
+    </section>
 
-<div class="card">
-    <h2>🕯️ What Is This?</h2>
-    <p>A fully custom social deduction experience inside Minecraft. Every player holds secrets. Every vote matters. Trust no one.</p>
-</div>
+    <!-- FOOTER -->
 
-<div class="card">
-    <h2>🎭 Gameplay</h2>
-    <p>Players debate, accuse, and vote during the day. At night, something hunts. Roles are hidden. Alliances are fragile.</p>
-</div>
+    <footer>
+        © 2025 Blood on the Blocktower
+    </footer>
 
-<div class="card">
-    <h2>👑 Why Play?</h2>
-    <ul>
-        <li>Custom Blood on the Clocktower systems</li>
-        <li>Proximity voice chat deception</li>
-        <li>Unique roles and mechanics</li>
-        <li>Live-hosted sessions</li>
-    </ul>
-</div>
-
-<div class="card" id="join">
-    <h2>📜 Request Entry</h2>
-    <p>Submit your name to the Town Council for consideration.</p>
-
-    <form id="whitelistForm" method="POST" action="/api/submit">
-        <input type="text" name="username" placeholder="Minecraft Username" required>
-        <br>
-        <button class="submit" type="submit">Submit Request</button>
-    </form>
-</div>
-
-<div class="card">
-    <h2>🎮 Join Directly</h2>
-    <h3>mc.bloodontheblocktower.com</h3>
-</div>
-
-<div class="card">
-    <h2>💬 Community</h2>
-    <p>Join the discussion, get updates, and take part in upcoming games.</p>
-    <a href="https://discord.gg/kV5tu9r" target="_blank">
-        <button class="cta-button discord-button">Enter the Discord</button>
-    </a>
-</div>
-
-</div>
-
-<div class="footer">
-    © 2026 Blood on the Blocktower
 </div>
 
 <script>
-document.getElementById("whitelistForm").addEventListener("submit", function() {
-    const btn = this.querySelector("button");
-    btn.disabled = true;
-    btn.textContent = "Submitting...";
+
+/* Fade In On Scroll */
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+            entry.target.classList.add("visible");
+        }
+
+    });
+
+}, {
+    threshold:0.15
 });
+
+document.querySelectorAll(".fade-in").forEach((el) => {
+    observer.observe(el);
+});
+
+/* Convert Sunday 1PM AEST to User Local Time */
+
+function updateLocalTime(){
+
+    // AEST = UTC+10
+    // Sunday 1:00 PM AEST
+
+    const userNow = new Date();
+
+    const utcNow = new Date(
+        userNow.getTime() + userNow.getTimezoneOffset() * 60000
+    );
+
+    const aestNow = new Date(
+        utcNow.getTime() + (10 * 60 * 60000)
+    );
+
+    const target = new Date(aestNow);
+
+    target.setHours(13,0,0,0);
+
+    // move to Sunday
+    const day = target.getDay();
+    const diff = (7 - day) % 7;
+
+    target.setDate(target.getDate() + diff);
+
+    const localTarget = new Date(
+        target.getTime() - (10 * 60 * 60000)
+    );
+
+    const formatted = localTarget.toLocaleString([], {
+        weekday:'long',
+        hour:'numeric',
+        minute:'2-digit'
+    });
+
+    document.getElementById("localTime").textContent =
+        formatted + " in your local time";
+}
+
+updateLocalTime();
+
 </script>
 
 </body>
