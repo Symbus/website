@@ -31,7 +31,7 @@ body{
     /* Static Background */
     background:
         linear-gradient(rgba(8,8,8,0.72), rgba(8,8,8,0.82)),
-        url('/background.webp');
+        url('background.webp');
 
     background-size:cover;
     background-position:center;
@@ -227,7 +227,7 @@ footer{
     <!-- IMAGE 1 -->
 
     <section class="panel image-card fade-in">
-        <img src="/screenshot1.webp" alt="Minecraft Blood on the Clocktower Build">
+        <img src="screenshot1.webp" alt="Minecraft Blood on the Clocktower Build">
     </section>
 
     <!-- TEXT 1 -->
@@ -250,47 +250,47 @@ footer{
 
     <!-- IMAGE 2 -->
 
-    <section class="panel image-card fade-in">
-        <img src="/screenshot2.webp" alt="Minecraft Town Square">
-    </section>
+<section class="panel image-card fade-in">
+    <img src="screenshot2.webp" alt="Minecraft Town Square">
+</section>
 
-    <!-- TEXT 2 -->
+<!-- TEXT 2 -->
 
-    <section class="panel text-box fade-in">
+<section class="panel text-box fade-in">
 
-        <p>
-            Interested in joining the game? Use the Discord link below to become part of the community, stay updated on upcoming sessions, and get access to the modpack and server information.
-        </p>
+    <p>
+        Interested in joining the game? Use the Discord link below to become part of the community, stay updated on upcoming sessions, and get access to the modpack and server information.
+    </p>
 
-        <p>
-            Most sessions are hosted at
-            <span class="time-highlight" id="localTime">
-                1:00 PM Sunday AEST
-            </span>,
-            though additional games and events may occasionally be scheduled throughout the week.
-        </p>
+    <p>
+        Most sessions are hosted at
+        <span class="time-highlight" id="localTime">
+            Sunday 1:00 PM Sydney Time
+        </span>,
+        though additional games and events may occasionally be scheduled throughout the week.
+    </p>
 
-        <p>
-            We’re a fairly small, close-knit community that enjoys immersive social deduction games, and we’re always happy to welcome new players regardless of experience level.
-        </p>
+    <p>
+        We’re a fairly small, close-knit community that enjoys immersive social deduction games, and we’re always happy to welcome new players regardless of experience level.
+    </p>
 
-        <p>
-            Please note that the server uses a moderately large modpack, so a reasonably powerful PC is recommended for the best experience and stable performance.
-        </p>
+    <p>
+        Please note that the server uses a moderately large modpack, so a reasonably powerful PC is recommended for the best experience and stable performance.
+    </p>
 
-    </section>
+</section>
 
     <!-- DISCORD -->
 
     <section class="panel discord-wrap fade-in">
 
         <a class="discord-btn"
-           href="YOUR_DISCORD_LINK_HERE"
-           target="_blank">
+   href="https://discord.com/invite/kV5tu9r"
+   target="_blank">
 
-            Join the Discord
+    Join the Discord
 
-        </a>
+</a>
 
     </section>
 
@@ -324,41 +324,35 @@ document.querySelectorAll(".fade-in").forEach((el) => {
     observer.observe(el);
 });
 
-/* Convert Sunday 1PM AEST to User Local Time */
+/* Convert Sunday 1PM Sydney Time to User Local Time */
 
-function updateLocalTime(){
+function updateLocalTime() {
 
-    // AEST = UTC+10
-    // Sunday 1:00 PM AEST
+    const now = new Date();
 
-    const userNow = new Date();
-
-    const utcNow = new Date(
-        userNow.getTime() + userNow.getTimezoneOffset() * 60000
+    // Current Sydney time
+    const sydneyNow = new Date(
+        now.toLocaleString("en-US", {
+            timeZone: "Australia/Sydney"
+        })
     );
 
-    const aestNow = new Date(
-        utcNow.getTime() + (10 * 60 * 60000)
-    );
+    // Upcoming Sunday
+    const target = new Date(sydneyNow);
 
-    const target = new Date(aestNow);
+    const currentDay = target.getDay();
+    const daysUntilSunday = (7 - currentDay) % 7;
 
-    target.setHours(13,0,0,0);
+    target.setDate(target.getDate() + daysUntilSunday);
 
-    // move to Sunday
-    const day = target.getDay();
-    const diff = (7 - day) % 7;
+    // Set to 1 PM Sydney time
+    target.setHours(13, 0, 0, 0);
 
-    target.setDate(target.getDate() + diff);
-
-    const localTarget = new Date(
-        target.getTime() - (10 * 60 * 60000)
-    );
-
-    const formatted = localTarget.toLocaleString([], {
-        weekday:'long',
-        hour:'numeric',
-        minute:'2-digit'
+    // Convert to user's local timezone automatically
+    const formatted = target.toLocaleString([], {
+        weekday: "long",
+        hour: "numeric",
+        minute: "2-digit"
     });
 
     document.getElementById("localTime").textContent =
