@@ -10,6 +10,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Metamorphous&display=swap" rel="stylesheet">
 
 <style>
 
@@ -72,6 +73,7 @@ body{
 }
 
 .hero h1{
+	font-family: "Metamorphous", serif;
     font-size:clamp(2.5rem, 6vw, 4.5rem);
     font-weight:700;
     letter-spacing:1px;
@@ -243,7 +245,7 @@ footer{
         </p>
 
         <p>
-            I’m also always designing original scripts, automated gameplay systems, and interactive role mechanics that allow up to 8 players to enjoy complex social deduction games directly inside Minecraft with proximity chat and live moderation.
+            I’m also always creating original scripts, automated gameplay systems, and interactive role mechanics that allow up to 8 players to enjoy the complex social deduction game directly inside Minecraft using proximity chat and live moderation.
         </p>
 
     </section>
@@ -267,7 +269,7 @@ footer{
         <span class="time-highlight" id="localTime">
             Sunday 1:00 PM Sydney Time
         </span>,
-        though additional games and events may occasionally be scheduled throughout the week.
+        though additional games may occasionally be scheduled at other times.
     </p>
 
     <p>
@@ -350,10 +352,11 @@ function updateLocalTime() {
 
     // Convert to user's local timezone automatically
     const formatted = target.toLocaleString([], {
-        weekday: "long",
-        hour: "numeric",
-        minute: "2-digit"
-    });
+    weekday: "long",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+}).replace("am", "AM").replace("pm", "PM");
 
     document.getElementById("localTime").textContent =
         formatted + " in your local time";
