@@ -5,11 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>Blood on the Blocktower</title>
+
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Metamorphous&display=swap" rel="stylesheet">
 
 <style>
@@ -25,13 +27,15 @@ html{
 }
 
 body{
-    font-family: "Segoe UI", sans-serif;
+    min-height:100vh;
+
+    font-family:"Segoe UI", sans-serif;
     color:#f4f1ea;
+
     overflow-x:hidden;
 
-    /* Static Background */
     background:
-        linear-gradient(rgba(8,8,8,0.72), rgba(8,8,8,0.82)),
+        linear-gradient(rgba(8,8,8,0.72), rgba(8,8,8,0.84)),
         url('background.webp');
 
     background-size:cover;
@@ -39,49 +43,52 @@ body{
     background-attachment:fixed;
 }
 
-/* Center Column */
+/* Page */
 
 .page{
-    width:min(92%, 900px);
+    width:min(92%, 920px);
     margin:auto;
     padding:40px 0 80px;
 }
 
-/* Glass Container */
+/* Panels */
 
 .panel{
-    background:rgba(15, 13, 12, 0.72);
-    border:1px solid rgba(255,255,255,0.08);
+    background:rgba(15,13,12,0.68);
 
-    backdrop-filter: blur(8px);
+    border:1px solid rgba(255,255,255,0.10);
 
-    border-radius:20px;
+    backdrop-filter:blur(10px);
+
+    border-radius:22px;
 
     box-shadow:
         0 0 35px rgba(0,0,0,0.45),
         0 0 2px rgba(255,255,255,0.08);
 
-    padding:32px;
-    margin-bottom:40px;
+    overflow:hidden;
+
+    margin-bottom:42px;
 }
 
-/* Header */
+/* Hero */
 
 .hero{
     text-align:center;
-    padding:50px 30px;
+    padding:60px 34px;
 }
 
 .hero h1{
-	font-family: "Metamorphous", serif;
-    font-size:clamp(2.5rem, 6vw, 4.5rem);
-    font-weight:700;
-    letter-spacing:1px;
+    font-family:"Metamorphous", serif;
+
+    font-size:clamp(2.8rem, 6vw, 4.8rem);
 
     color:#f8f1de;
 
+    letter-spacing:1px;
+
     text-shadow:
-        0 0 10px rgba(255,220,150,0.15),
+        0 0 12px rgba(255,220,150,0.14),
         0 0 30px rgba(0,0,0,0.4);
 
     margin-bottom:18px;
@@ -89,51 +96,58 @@ body{
 
 .subtitle{
     font-size:1.2rem;
-    color:#d8d2c7;
-    opacity:0.92;
+    color:#d9d3c8;
+    opacity:0.95;
 }
 
 /* Images */
-
-.image-card{
-    overflow:hidden;
-    padding:0;
-}
 
 .image-card img{
     width:100%;
     display:block;
 
-    transition:transform 0.8s ease;
+    transition:
+        transform 1s ease,
+        filter 0.6s ease;
 }
 
 .image-card:hover img{
     transform:scale(1.03);
+    filter:brightness(1.03);
 }
 
 /* Text */
 
 .text-box{
-    line-height:1.9;
+    padding:34px;
+
+    line-height:1.95;
+
     font-size:1.08rem;
+
     color:#ebe6dc;
 }
 
 .text-box p{
-    margin-bottom:20px;
+    margin-bottom:22px;
 }
 
-/* Time Highlight */
+.text-box p:last-child{
+    margin-bottom:0;
+}
+
+/* Time */
 
 .time-highlight{
     color:#ffcf7d;
     font-weight:700;
 }
 
-/* Discord Button */
+/* Discord */
 
 .discord-wrap{
     text-align:center;
+    padding:40px 20px;
 }
 
 .discord-btn{
@@ -141,19 +155,21 @@ body{
 
     padding:18px 34px;
 
-    background:linear-gradient(135deg, #6f84ff, #5662f6);
+    background:
+        linear-gradient(135deg, #6f84ff, #5662f6);
 
     color:white;
     text-decoration:none;
 
     border-radius:14px;
 
-    font-size:1.1rem;
+    font-size:1.08rem;
     font-weight:600;
 
     transition:
         transform 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
 
     box-shadow:
         0 10px 30px rgba(86,98,246,0.35);
@@ -161,6 +177,8 @@ body{
 
 .discord-btn:hover{
     transform:translateY(-3px);
+
+    filter:brightness(1.05);
 
     box-shadow:
         0 14px 40px rgba(86,98,246,0.45);
@@ -170,19 +188,24 @@ body{
 
 footer{
     text-align:center;
+
     color:rgba(255,255,255,0.55);
-    font-size:0.9rem;
-    padding-top:10px;
+
+    font-size:0.92rem;
+
+    padding-top:6px;
 }
 
-/* Fade In Animation */
+/* Fade In */
 
 .fade-in{
     opacity:0;
-    transform:translateY(40px);
+
+    transform:translateY(50px);
+
     transition:
-        opacity 1s ease,
-        transform 1s ease;
+        opacity 1.2s ease,
+        transform 1.2s cubic-bezier(.22,1,.36,1);
 }
 
 .fade-in.visible{
@@ -192,19 +215,25 @@ footer{
 
 /* Mobile */
 
-@media (max-width: 700px){
-
-    .panel{
-        padding:24px;
-    }
+@media (max-width:700px){
 
     .hero{
-        padding:40px 20px;
+        padding:44px 24px;
+    }
+
+    .hero h1{
+        font-size:clamp(2.2rem, 10vw, 4rem);
     }
 
     .text-box{
+        padding:26px;
         font-size:1rem;
-        line-height:1.8;
+        line-height:1.85;
+    }
+
+    .discord-btn{
+        width:100%;
+        max-width:320px;
     }
 
 }
@@ -219,80 +248,111 @@ footer{
     <!-- HERO -->
 
     <section class="panel hero fade-in">
+
         <h1>Blood on the Blocktower</h1>
 
         <p class="subtitle">
             A social deduction game in Minecraft.
         </p>
+
     </section>
 
-    <!-- IMAGE 1 -->
+    <!-- HERO IMAGE -->
 
     <section class="panel image-card fade-in">
-        <img src="screenshot1.webp" alt="Minecraft Blood on the Clocktower Build">
+
+        <img
+            src="symbus.webp"
+            alt="Minecraft Character at Graveyard Entrance"
+            loading="lazy"
+        >
+
     </section>
 
-    <!-- TEXT 1 -->
+    <!-- ABOUT -->
 
     <section class="panel text-box fade-in">
 
         <p>
-            I am hosting and developing a custom Blood on the Clocktower experience all within Minecraft, recreating the game’s tense social deduction, nominations, and executions using advanced command systems and immersive builds.
+            Hello there! My name is Hamish, aka Symbus. Thank you for visiting my humble site.
         </p>
 
         <p>
-            From fully functional voting mechanics to custom storytelling tools, I focus on making every game feel smooth, dramatic, and faithful to the original experience while taking advantage of what Minecraft can uniquely offer.
+            I run a dedicated modded Minecraft server where I host a custom-made Blood on the Clocktower experience entirely within the game. I have recreated the game’s tense social deduction, nominations, and executions using in-game command systems and functions. Combined with an immersive build and proximity chat, these elements create a unique and thrilling experience.
         </p>
 
         <p>
-            I’m also always creating original scripts, automated gameplay systems, and interactive role mechanics that allow up to 8 players to enjoy the complex social deduction game directly inside Minecraft using proximity chat and live moderation.
+            With fully functional voting mechanics and easy-to-use storytelling tools, I have designed the game to feel smooth, dramatic, and faithful to the original experience, while also taking advantage of what Minecraft can uniquely offer.
+        </p>
+			To keep the game flowing nicely, I have limited the number of seats to 8 players. This helps keep the nights shorter while still leaving room for most official characters to be included and enjoyed.
+		<p>
+		
+		</p>
+
+    </section>
+
+    <!-- SECOND IMAGE -->
+
+    <section class="panel image-card fade-in">
+
+        <img
+            src="screenshot2.webp"
+            alt="Minecraft Town Square"
+            loading="lazy"
+        >
+
+    </section>
+
+    <!-- JOIN -->
+
+    <section class="panel text-box fade-in">
+
+        <p>
+            Interested in joining the game? Use the Discord link at the bottom of this page to become part of the community, stay updated on upcoming sessions, and get access to the modpack and server information.
+        </p>
+
+        <p>
+            Most sessions are hosted at
+            <span class="time-highlight" id="localTime">
+                Sunday 1:00 PM Sydney Time
+            </span>,
+            though additional games may occasionally be scheduled at other times.
+        </p>
+
+        <p>
+            We’re a fairly small, close-knit community focused on immersive social deduction experiences, and we’re always happy to welcome new players regardless of experience level.
+        </p>
+
+        <p>
+            Please note that the server uses a moderately large modpack, so a reasonably powerful PC is recommended for the best experience and stable performance.
         </p>
 
     </section>
 
-    <!-- IMAGE 2 -->
+    <!-- MOVED SCREENSHOT -->
 
-<section class="panel image-card fade-in">
-    <img src="screenshot2.webp" alt="Minecraft Town Square">
-</section>
+    <section class="panel image-card fade-in">
 
-<!-- TEXT 2 -->
+        <img
+            src="screenshot1.webp"
+            alt="Minecraft Blood on the Clocktower Build"
+            loading="lazy"
+        >
 
-<section class="panel text-box fade-in">
-
-    <p>
-        Interested in joining the game? Use the Discord link below to become part of the community, stay updated on upcoming sessions, and get access to the modpack and server information.
-    </p>
-
-    <p>
-        Most sessions are hosted at
-        <span class="time-highlight" id="localTime">
-            Sunday 1:00 PM Sydney Time
-        </span>,
-        though additional games may occasionally be scheduled at other times.
-    </p>
-
-    <p>
-        We’re a fairly small, close-knit community that enjoys immersive social deduction games, and we’re always happy to welcome new players regardless of experience level.
-    </p>
-
-    <p>
-        Please note that the server uses a moderately large modpack, so a reasonably powerful PC is recommended for the best experience and stable performance.
-    </p>
-
-</section>
+    </section>
 
     <!-- DISCORD -->
 
     <section class="panel discord-wrap fade-in">
 
-        <a class="discord-btn"
-   href="https://discord.com/invite/kV5tu9r"
-   target="_blank">
-
-    Join the Discord
-
-</a>
+        <a
+            class="discord-btn"
+            href="https://discord.com/invite/kV5tu9r"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Join the Discord
+        </a>
 
     </section>
 
@@ -306,14 +366,16 @@ footer{
 
 <script>
 
-/* Fade In On Scroll */
+/* Fade In Observer */
 
 const observer = new IntersectionObserver((entries) => {
 
     entries.forEach(entry => {
 
         if(entry.isIntersecting){
+
             entry.target.classList.add("visible");
+
         }
 
     });
@@ -323,10 +385,12 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 document.querySelectorAll(".fade-in").forEach((el) => {
+
     observer.observe(el);
+
 });
 
-/* Convert Sunday 1PM Sydney Time to User Local Time */
+/* Convert Sydney Sunday 1 PM to User Local Time */
 
 function updateLocalTime() {
 
@@ -335,28 +399,47 @@ function updateLocalTime() {
     // Current Sydney time
     const sydneyNow = new Date(
         now.toLocaleString("en-US", {
-            timeZone: "Australia/Sydney"
+            timeZone:"Australia/Sydney"
         })
     );
 
-    // Upcoming Sunday
+    // Clone Sydney date
     const target = new Date(sydneyNow);
 
     const currentDay = target.getDay();
-    const daysUntilSunday = (7 - currentDay) % 7;
 
-    target.setDate(target.getDate() + daysUntilSunday);
+    let daysUntilSunday = (7 - currentDay) % 7;
 
-    // Set to 1 PM Sydney time
+    // If already Sunday after 1 PM Sydney time,
+    // move to next Sunday
+    if(
+        daysUntilSunday === 0 &&
+        target.getHours() >= 13
+    ){
+        daysUntilSunday = 7;
+    }
+
+    target.setDate(
+        target.getDate() + daysUntilSunday
+    );
+
+    // Set 1 PM Sydney time
     target.setHours(13, 0, 0, 0);
 
-    // Convert to user's local timezone automatically
+    // Convert to local timezone
     const formatted = target.toLocaleString([], {
-    weekday: "long",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true
-}).replace("am", "AM").replace("pm", "PM");
+
+        weekday:"long",
+
+        hour:"numeric",
+
+        minute:"2-digit",
+
+        hour12:true
+
+    })
+    .replace("am", "AM")
+    .replace("pm", "PM");
 
     document.getElementById("localTime").textContent =
         formatted + " in your local time";
