@@ -7,60 +7,71 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background"></div>
-  <div class="overlay"></div>
+  <div class="bg-art"></div>
+  <div class="bg-shade"></div>
 
-  <main class="page-shell">
-    <section class="topbar">
-      <div>
+  <main class="page">
+    <header class="brand">
+      <div class="logo-crop" aria-hidden="true">
+        <img src="assets/shortbytes-background.png" alt="" />
+      </div>
+
+      <div class="brand-copy">
         <p class="eyebrow">SHORT BYTES</p>
         <h1>Trouble in Terrorist Town</h1>
       </div>
 
-      <div class="server-chip">
-        <span class="dot"></span>
-        <span id="serverStatus">Connecting</span>
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span id="serverStatus">Loading</span>
       </div>
-    </section>
+    </header>
 
-    <section class="content-grid">
-      <div class="left-column">
-        <div class="hero-card glass">
+    <section class="main-grid">
+      <div class="left-stack">
+        <section class="card join-card">
           <p class="section-label">JOINING SERVER</p>
           <h2 id="statusText">Preparing connection...</h2>
           <p id="downloadText" class="muted">Waiting for Garry's Mod...</p>
 
-          <div class="progress-wrap">
+          <div class="progress-area">
             <div class="progress-track">
               <div id="progressBar" class="progress-bar"></div>
             </div>
+
             <div class="progress-meta">
               <span id="progressLabel">0%</span>
               <span id="fileCounter">0 / 0 files</span>
             </div>
           </div>
 
-          <div class="info-row">
+          <div class="info-grid">
             <div class="info-box">
               <span class="info-label">MAP</span>
               <strong id="mapName">Unknown</strong>
             </div>
 
-            <div class="info-box">
-              <span class="info-label">PLAYER</span>
-              <strong id="playerId">Connecting...</strong>
+            <div class="player-box">
+              <img id="playerAvatar" class="avatar" alt="Steam avatar" />
+              <div class="player-copy">
+                <span class="info-label">PLAYER</span>
+                <strong id="playerName">Joining...</strong>
+                <span id="playerSubtext" class="player-subtext">Looking up Steam profile...</span>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        <div class="tip-card glass">
-          <p class="section-label">WHILE YOU WAIT</p>
-          <p id="tipText" class="tip-text"></p>
-        </div>
+        <section class="card tip-card">
+          <div>
+            <p class="section-label">WHILE YOU WAIT</p>
+            <p id="tipText" class="tip-text"></p>
+          </div>
+        </section>
       </div>
 
-      <aside class="side-card glass">
-        <div class="side-section">
+      <aside class="card rules-card">
+        <div class="rules-block">
           <p class="section-label">SERVER RULES</p>
           <ol class="rules">
             <li>No RDM or random damage.</li>
@@ -73,7 +84,7 @@
 
         <div class="divider"></div>
 
-        <div class="side-section">
+        <div>
           <p class="section-label">TTT BASICS</p>
           <p class="small-copy">
             Innocents must identify and eliminate the Traitors.
@@ -84,7 +95,7 @@
 
         <div class="divider"></div>
 
-        <div class="side-section">
+        <div>
           <p class="section-label">COMMUNITY</p>
           <p class="small-copy">
             Have fun, communicate clearly, and keep the round moving.
