@@ -6,6 +6,7 @@
   <title>Short Bytes TTT</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <div class="bg-art"></div>
   <div class="bg-shade"></div>
@@ -29,10 +30,17 @@
 
     <section class="main-grid">
       <div class="left-stack">
+
         <section class="card join-card">
           <p class="section-label">JOINING SERVER</p>
-          <h2 id="statusText">Preparing connection...</h2>
-          <p id="downloadText" class="muted">Loading server content...</p>
+
+          <h2 id="statusText">
+            Preparing connection...
+          </h2>
+
+          <p id="downloadText" class="muted">
+            Loading server content...
+          </p>
 
           <div class="progress-area">
             <div class="progress-track">
@@ -46,31 +54,60 @@
           </div>
 
           <div class="info-grid">
+
             <div class="info-box">
               <span class="info-label">MAP</span>
               <strong id="mapName">Unknown</strong>
             </div>
 
             <div class="player-box">
-              <img id="playerAvatar" class="avatar" alt="Steam avatar" />
+              <img
+                id="playerAvatar"
+                class="avatar"
+                alt="Steam avatar"
+              />
+
               <div class="player-copy">
                 <span class="info-label">PLAYER</span>
-                <strong id="playerName">Joining...</strong>
-                <span id="playerSubtext" class="player-subtext">Looking up Steam profile...</span>
+
+                <strong id="playerName">
+                  Joining...
+                </strong>
+
+                <span
+                  id="playerSubtext"
+                  class="player-subtext"
+                >
+                  Looking up Steam profile...
+                </span>
               </div>
             </div>
+
           </div>
         </section>
 
+
         <section class="card tip-card">
-          <p class="section-label">WHILE YOU WAIT</p>
-          <p id="tipText" class="tip-text"></p>
+          <p class="section-label">
+            WHILE YOU WAIT
+          </p>
+
+          <p
+            id="tipText"
+            class="tip-text"
+          ></p>
         </section>
+
       </div>
 
+
       <aside class="card rules-card">
+
         <div>
-          <p class="section-label">SERVER RULES</p>
+          <p class="section-label">
+            SERVER RULES
+          </p>
+
           <ol class="rules">
             <li>No RDM or random damage.</li>
             <li>Do not ghost or reveal information after death.</li>
@@ -80,10 +117,15 @@
           </ol>
         </div>
 
+
         <div class="divider"></div>
 
+
         <div>
-          <p class="section-label">TTT BASICS</p>
+          <p class="section-label">
+            TTT BASICS
+          </p>
+
           <p class="small-copy">
             Innocents must identify and eliminate the Traitors.
             Traitors work together in secret.
@@ -91,23 +133,89 @@
           </p>
         </div>
 
+
         <div class="divider"></div>
 
+
         <div>
-          <p class="section-label">COMMUNITY</p>
+          <p class="section-label">
+            COMMUNITY
+          </p>
+
           <p class="small-copy">
             Have fun, communicate clearly, and keep the round moving.
           </p>
         </div>
+
       </aside>
     </section>
 
+
     <footer>
-      <span>Short Bytes TTT</span>
-      <span id="footerStatus">Loading server content...</span>
+      <span>
+        Short Bytes TTT
+      </span>
+
+      <span id="footerStatus">
+        Loading server content...
+      </span>
     </footer>
+
   </main>
 
+
+  <!-- ======================================================
+       Loading Screen Music
+       ====================================================== -->
+
+  <audio
+    id="loadingMusic"
+    autoplay
+    loop
+    preload="auto"
+  >
+    <source
+      src="Short%20Bytes%20Theme.mp3"
+      type="audio/mpeg"
+    />
+  </audio>
+
+
+  <!-- ======================================================
+       Main Loading Screen Script
+       ====================================================== -->
+
   <script src="script.js"></script>
+
+
+  <!-- ======================================================
+       Music Setup
+       ====================================================== -->
+
+  <script>
+    (function () {
+      const music = document.getElementById("loadingMusic");
+
+      if (!music) {
+        return;
+      }
+
+      // Loading screen music volume: 20%
+      music.volume = 0.20;
+
+      // Attempt to begin playback.
+      const playAttempt = music.play();
+
+      if (playAttempt !== undefined) {
+        playAttempt.catch(function (error) {
+          console.log(
+            "Short Bytes loading music autoplay was blocked:",
+            error
+          );
+        });
+      }
+    })();
+  </script>
+
 </body>
 </html>
