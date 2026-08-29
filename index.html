@@ -69,8 +69,6 @@ body{
     overflow:hidden;
 
     margin-bottom:42px;
-	
-	
 }
 
 /* Hero */
@@ -241,15 +239,22 @@ footer{
 }
 
 </style>
+
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-78J0HD7XGB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-78J0HD7XGB');
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag(){
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-78J0HD7XGB');
 </script>
+
 </head>
 
 <body>
@@ -292,13 +297,13 @@ footer{
             I run a dedicated modded Minecraft server where I host a custom-made Blood on the Clocktower experience entirely within the game. I have recreated the game’s tense social deduction, nominations, and executions using in-game command systems and functions. Combined with an immersive build and proximity chat, these elements create a unique and thrilling experience.
         </p>
 
-<p>
-    With fully functional voting mechanics and easy-to-use storytelling tools, I have designed the game to feel smooth, dramatic, and faithful to the original experience, while also taking advantage of what Minecraft can uniquely offer.
-</p>
+        <p>
+            With fully functional voting mechanics and easy-to-use storytelling tools, I have designed the game to feel smooth, dramatic, and faithful to the original experience, while also taking advantage of what Minecraft can uniquely offer.
+        </p>
 
-<p>
-    To keep the game flowing nicely, I have limited the number of seats to 8 players. This helps keep the nights shorter while still leaving room for most official characters to be included and enjoyed.
-</p>
+        <p>
+            To keep the game flowing nicely, I have limited the number of seats to 8 players. This helps keep the nights shorter while still leaving room for most official characters to be included and enjoyed.
+        </p>
 
     </section>
 
@@ -384,9 +389,7 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
 
         if(entry.isIntersecting){
-
             entry.target.classList.add("visible");
-
         }
 
     });
@@ -396,64 +399,228 @@ const observer = new IntersectionObserver((entries) => {
 });
 
 document.querySelectorAll(".fade-in").forEach((el) => {
-
     observer.observe(el);
-
 });
 
-/* Convert Sydney Sunday 1 PM to User Local Time */
+
+/* -------------------------------------------------------
+   Convert Sunday 1:00 PM Australia/Sydney
+   to the visitor's local timezone
+------------------------------------------------------- */
+
+
+/*
+    Get the UTC offset for a particular timezone
+    at a particular moment.
+
+    This allows daylight saving time to be handled
+    automatically.
+*/
+
+function getTimeZoneOffset(date, timeZone) {
+
+    const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: timeZone,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hourCycle: "h23"
+    });
+
+    const parts = formatter.formatToParts(date);
+
+    const values = {};
+
+    parts.forEach(part => {
+
+        if(part.type !== "literal"){
+            values[part.type] = part.value;
+        }
+
+    });
+
+    const asUTC = Date.UTC(
+        Number(values.year),
+        Number(values.month) - 1,
+        Number(values.day),
+        Number(values.hour),
+        Number(values.minute),
+        Number(values.second)
+    );
+
+    return asUTC - date.getTime();
+}
+
+
+/*
+    Create a Date representing an exact clock time
+    in Australia/Sydney.
+*/
+
+function makeSydneyDate(year, month, day, hour, minute = 0) {
+
+    const guessedUTC = new Date(
+        Date.UTC(
+            year,
+            month - 1,
+            day,
+            hour,
+            minute,
+            0
+        )
+    );
+
+    let offset = getTimeZoneOffset(
+        guessedUTC,
+        "Australia/Sydney"
+    );
+
+    let result = new Date(
+        guessedUTC.getTime() - offset
+    );
+
+    /*
+        Check the offset again at the actual resulting
+        moment in case daylight saving changes nearby.
+    */
+
+    const correctedOffset = getTimeZoneOffset(
+        result,
+        "Australia/Sydney"
+    );
+
+    if(correctedOffset !== offset){
+
+        result = new Date(
+            guessedUTC.getTime() - correctedOffset
+        );
+
+    }
+
+    return result;
+}
+
+
+/*
+    Find the next Sunday at 1 PM Sydney time,
+    then display that moment in the visitor's timezone.
+*/
 
 function updateLocalTime() {
 
     const now = new Date();
 
-    // Current Sydney time
-    const sydneyNow = new Date(
-        now.toLocaleString("en-US", {
-            timeZone:"Australia/Sydney"
-        })
-    );
+    /*
+        Read the current date/time as Sydney sees it.
+    */
 
-    // Clone Sydney date
-    const target = new Date(sydneyNow);
+    const sydneyFormatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Australia/Sydney",
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        weekday: "short",
+        hour: "numeric",
+        minute: "numeric",
+        hourCycle: "h23"
+    });
 
-    const currentDay = target.getDay();
+    const parts = {};
 
-    let daysUntilSunday = (7 - currentDay) % 7;
+    sydneyFormatter.formatToParts(now).forEach(part => {
 
-    // If already Sunday after 1 PM Sydney time,
-    // move to next Sunday
+        if(part.type !== "literal"){
+            parts[part.type] = part.value;
+        }
+
+    });
+
+    const dayNumbers = {
+        Sun: 0,
+        Mon: 1,
+        Tue: 2,
+        Wed: 3,
+        Thu: 4,
+        Fri: 5,
+        Sat: 6
+    };
+
+    const currentDay = dayNumbers[parts.weekday];
+
+    let daysUntilSunday =
+        (7 - currentDay) % 7;
+
+    /*
+        If it is already Sunday in Sydney
+        and the 1 PM session has passed,
+        show the following Sunday instead.
+    */
+
     if(
         daysUntilSunday === 0 &&
-        target.getHours() >= 13
+        (
+            Number(parts.hour) > 13 ||
+            (
+                Number(parts.hour) === 13 &&
+                Number(parts.minute) >= 0
+            )
+        )
     ){
         daysUntilSunday = 7;
     }
 
-    target.setDate(
-        target.getDate() + daysUntilSunday
+    /*
+        Work out the calendar date of that Sunday.
+        UTC is only being used here for safe
+        calendar arithmetic.
+    */
+
+    const sundayDate = new Date(
+        Date.UTC(
+            Number(parts.year),
+            Number(parts.month) - 1,
+            Number(parts.day) + daysUntilSunday
+        )
     );
 
-    // Set 1 PM Sydney time
-    target.setHours(13, 0, 0, 0);
+    /*
+        Turn Sunday 1:00 PM Sydney time into
+        an actual universal moment.
+    */
 
-    // Convert to local timezone
-    const formatted = target.toLocaleString([], {
+    const target = makeSydneyDate(
+        sundayDate.getUTCFullYear(),
+        sundayDate.getUTCMonth() + 1,
+        sundayDate.getUTCDate(),
+        13,
+        0
+    );
 
-        weekday:"long",
+    /*
+        The browser automatically uses the
+        visitor's own timezone here.
+    */
 
-        hour:"numeric",
+    const formatted = target.toLocaleString(undefined, {
+        weekday: "long",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+    });
 
-        minute:"2-digit",
+    const localTimeElement =
+        document.getElementById("localTime");
 
-        hour12:true
+    if(localTimeElement){
 
-    })
-    .replace("am", "AM")
-    .replace("pm", "PM");
+        localTimeElement.textContent =
+            formatted + " in your local time";
 
-    document.getElementById("localTime").textContent =
-        formatted + " in your local time";
+    }
+
 }
 
 updateLocalTime();
